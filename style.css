@@ -1,0 +1,355 @@
+html {
+  height: 100%;
+  font-size: 14px;
+}
+body {
+  font-family: 'ヒラギノ角ゴシック','Avenir','Hiragino Sans','Helvetica Neue','Helvetica','Arial',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic',sans-serif;
+  background-color: #F5F523;
+  color: #0d3bd1;
+  height: 100%;
+  width: 100%;
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  flex-direction: column;
+  background: url(jacket_back.jpg) no-repeat right center;
+  background-size: cover;
+}
+
+[v-cloak] {
+  visibility:hidden;
+}
+
+a, a:hover, a:visited, a:focus {
+  color: #0d3bd1;
+}
+
+#bar {
+  position: fixed;
+  top: 0;
+  left:0;
+  right:0;
+  width:100%;
+  height: 5px;
+  z-index: 400;
+}
+#barinside {
+  width: 0px;
+  height:100%;
+  background: rgba( 17,30,210 , 0.75 );
+}
+
+#app {
+  width: 100vw;
+}
+
+#content {
+  flex: 1 0 auto;
+  display:-webkit-box;
+  display:-ms-flexbox;
+  display:flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  flex-direction: column;
+
+  border: 10px solid #000759;
+  border-width: 0px;
+  padding: 10px 0 10px 0;
+  text-align: center;
+  margin: 0 auto;
+  width: 600px;
+  min-width: 300px;
+  height: 180px;
+  color: #000769;
+
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-delay: 0s;
+  transition-timing-function: ease;
+  transition-delay: 0.4s;
+}
+
+.active {
+  width: 90% !important;
+  height: 300px !important;
+  border-width: 10px !important;
+  background-color: #F5F523 !important;
+}
+
+ul {
+  margin:0;
+  margin-left: 5px;
+  padding-left: 15px;
+}
+
+#button-outer {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.btn {
+  font-size: 2rem;
+  border-radius: 7px;
+  background: rgba( 17,30,210 , 0.75 );
+  color: #ffffff;
+  padding: 15px 45px 15px 40px;
+  text-decoration: none;
+  vertical-align: middle;
+
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-delay: 0.4s;
+  transition-timing-function: ease;
+  opacity: 1;
+}
+.btn:hover, .btn:visited, .btn:focus{
+  color: #ffffff;
+}
+.btn i{
+  vertical-align: middle;
+  margin-top: -4px;
+}
+.notshow {
+  opacity: 0 !important;
+}
+
+#main {
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+
+#h1 {
+  font-size: 10rem;
+  font-weight: bold;
+  vertical-align: middle;
+  margin-bottom: -10px;
+}
+
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  font-size: 2rem;
+  width: 100%;
+}
+#footer-menu {
+  float: left;
+  padding: 20px;
+  vertical-align: middle;
+}
+#footer-controller {
+  float: right;
+  text-align: right;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+#footer-controller i {
+  font-size: 3.5rem;
+}
+#footer-controller i:hover {
+  cursor: pointer;
+}
+#loading{
+  font-size: 3rem;
+  font-style: italic;
+}
+
+.clearfix:after {
+    content:"";
+    display:block;
+    clear:both;
+}
+
+.menubtn {
+  font-size: 1.5rem;
+  border-bottom: 0px solid #243bd1;
+  padding: 10px 15px 10px 15px;
+  margin-left: 10px;
+  text-decoration: none;
+  color: #243bd1;
+
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+  opacity: 1;
+}
+
+.menubtn:hover{
+  border-bottom: 4px solid #243bd1;
+}
+
+.modal-default-button {
+  color: #111ed2;
+}
+
+h4, h5{
+  margin-bottom: 1rem;
+}
+
+.nkimg {
+  width:30%; height:auto; max-width:200px;
+  margin-right: 5px;
+  float: left;
+}
+
+
+.emoji {
+    font-size: 7rem !important;
+}
+
+
+/* Media Query */
+
+
+@media screen and (max-width:1024px) {
+  /* less than PC size */
+  #footer-menu .menubtn {
+    display: block;
+  }
+}
+
+@media screen and (min-width:480px) and ( max-width:1024px) {
+  #content {
+    width: 450px;
+  }
+  #main {
+    font-size: 2.7rem;
+  }
+  #h1 {
+    font-size: 7rem;
+  }
+  .btn {
+    font-size: 1.3rem;
+  }
+  .modal-container {
+
+  }
+
+}
+
+
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 13px;
+  }
+  #content{
+    width: 300px;
+    min-width: 300px;
+    height: 130px;
+    border-width: 0px;
+  }
+  .active {
+    width: 90% !important;
+    height: 150px !important;
+    border-width: 6px !important;
+  }
+  #h1 {
+    font-size: 5rem;
+  }
+  .btn {
+    font-size: 1.2rem;
+    padding: 15px 30px 15px 25px;
+  }
+  .emoji {
+      font-size: 5rem !important;
+  }
+  #main {
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+  #footer-controller {
+    padding: 5px;
+  }
+  #footer-controller i {
+    font-size: 3rem;
+  }
+  #footer-menu{
+    padding: 6px 0 15px 6px;
+  }
+  .menubtn {
+    font-size: 1.4rem;
+    padding: 5px 3px 8px 3px;
+    margin-left: 5px;
+  }
+  .modal-container {
+    width: 280px;
+    padding: 5px;
+  }
+  .modal-body {
+    margin: 5px 0;
+    font-size: 1rem;
+    overflow: scroll;
+  }
+  .modal-header h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+}
+
+
+/* animation */
+.shake {
+    display: inline-block;
+    animation: shake .4s  infinite;
+}
+
+@keyframes shake {
+    0% {transform: translate(0px, 0px) rotateZ(0deg)}
+    25% {transform: translate(2px, 2px) rotateZ(1deg)}
+    50% {transform: translate(0px, 2px) rotateZ(0deg)}
+    75% {transform: translate(2px, 0px) rotateZ(-1deg)}
+    100% {transform: translate(0px, 0px) rotateZ(0deg)}
+}
+
+
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.animated.infinite {
+  animation-iteration-count: infinite;
+}
+
+
+@keyframes bounce {
+  from, 20%, 53%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    transform: translate3d(0,0,0);
+  }
+
+  40%, 43% {
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    transform: translate3d(0, -30px, 0);
+  }
+
+  70% {
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    transform: translate3d(0, -15px, 0);
+  }
+
+  90% {
+    transform: translate3d(0,-4px,0);
+  }
+}
+
+.bounce {
+  animation-name: bounce;
+  transform-origin: center bottom;
+}
+

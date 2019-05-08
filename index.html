@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>シナプス [猫を堕ろす]</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no">
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="modal.css">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+</head>
+<body>
+  <!-- template for the modal component -->
+  <script type="text/x-template" id="modal-template">
+    <transition name="modal">
+      <div class="modal-mask">
+        <div class="modal-wrapper">
+          <div class="modal-container">
+
+            <div class="modal-header">
+              <slot name="header">
+                default header
+              </slot>
+            </div>
+
+            <div class="modal-body">
+              <slot name="body">
+                default body
+              </slot>
+            </div>
+
+            <div class="modal-footer">
+              <slot name="footer">
+                <a class="modal-default-button" @click.prevent="$emit('close')" href="#">
+                  <i class="material-icons">close</i>
+                </a>
+              </slot>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </script>
+  <div id="bar"><div id="barinside"></div></div>
+  <div id="app" v-cloak>
+    <span v-show="false">{{message}}</span>
+    <span v-on:click="where" v-show="false">seek</span>
+    <div id="content" v-bind:class="{ active: playing }">
+      <!-- <div id="h1" v-show="!started" v-bind:class="{ shake: true }">シナプス</div> -->
+      <div id="logo" v-show="!started && transitioned"><img src="logo.png" alt="シナプス" style="width: 100%; opacity: 0.8;"></div>
+      <div id="loading" v-show="started && !playing">Loading...</div>
+      <div id="main" v-show="started" v-bind:class="{ emoji: data.emoji }">
+        {{data.lyric}}
+      </div>
+    </div>
+    <div id="button-outer">
+      <a class="btn" href="#" v-on:click.prevent="start" v-show="showButton" v-bind:class="{ notshow: started }">
+        <i class="material-icons">{{ oncePlayed ? 'replay' : 'play_arrow' }}</i> {{ oncePlayed ? 'Replay' : 'Play' }} </a>
+      <a class="btn" href="synapse.mp3" target="_blank" v-show="showButton && oncePlayed" v-bind:class="{ notshow: started }" style="margin-left: 20px;"><i class="material-icons">file_download</i> Download</a>
+    </div>
+    <div id="footer">
+      <div id="footer-menu">
+        <a class="menubtn" href="#" @click.prevent="modalOpen('credit');">Credit</a>
+        <a class="menubtn" href="#" @click.prevent="modalOpen('jacket');">Jacket</a>
+        <a class="menubtn" href="#" @click.prevent="modalOpen('lyrics')">Lyrics</a>
+        <a class="menubtn" href="#" @click.prevent="modalOpen('Fan Art')">Fan Art</a>
+        <a class="menubtn" href="#" @click.prevent="modalOpen('streaming');">Streaming</a>
+      </div>
+      <div id="footer-controller">
+        <span v-on:click="toggleMute">
+          <i class="material-icons">{{ mute ? 'volume_off' : 'volume_up' }}</i>
+        </span>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+
+    <modal v-if="showModal" @close="modalClose">
+      <h3 slot="header">{{ modalContent.charAt(0).toUpperCase() + modalContent.slice(1) }}</h3>
+      <div slot="body" v-show="modalContent === 'credit'">
+        <h4>シナプス</h4>
+        <ul>
+          <li>作曲　伊藤薫人</li>
+          <li>作詞　伊藤薫人/イカリヤマナツ</li>
+          <li>編曲　猫を堕ろす</li>
+          <li>レコーディング/マスタリング　伊藤薫人</li>
+          <li>録音スタジオ　Studio YAMANOUE, Studio 246 Nagoya</li>
+          <li>ジャケット　伊藤薫人/澤田誠也</li>
+        </ul>
+        <h4>猫を堕ろす</h4>
+        <div style="margin-left: 10px;">
+          <a href="nk.jpeg"><img src="nk.jpeg" class="nkimg"></a>
+          <b>【CUTEでDOPE】</b><br>
+          名古屋の奇才・イトウユキト＆イカリヤマナツ率いるシニカル・ポップバンド。2016年に現体制で初となる1stアルバム「The Cats Are Alright」をリリース。名古屋から徐々に活動範囲を広げている。2016年RO69JACK入賞。 [<a href="http://nkwors.com/" target="_blank">Webサイト</a>]
+        </div>
+        <h5>スペシャルサンクス</h5>
+        <div style="margin-left: 10px;"> 名大フォークソング同好会, 鑪ら場, カツタカモリ, and YOU! </div>
+        <br>
+        Powered by
+        <a href="https://vuejs.org"><img width="100" src="https://camo.githubusercontent.com/728ce9f78c3139e76fa69925ad7cc502e32795d2/68747470733a2f2f7675656a732e6f72672f696d616765732f6c6f676f2e706e67" data-canonical-src="https://vuejs.org/images/logo.png" style="width:25px;"></a>
+        <a href="https://howlerjs.com"><img src="https://camo.githubusercontent.com/98b571ff7230cf5d95e1d41d5d8ea0620c20a79d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f686f776c65722e6a732f686f776c65722d6c6f676f2e706e67" alt="howler.js" title="howler.js" data-canonical-src="https://s3.amazonaws.com/howler.js/howler-logo.png" style="width:100px;"></a>
+        <br> Copyright &copy; 2017 ビスマルクレコード All Rights Reserved.
+      </div>
+      <div slot="body" v-show="modalContent === 'streaming'">
+        <center>
+          <a href="https://itunes.apple.com/jp/album/id1270986884?app=itunes" target="_blank"><img class="" width="125px" height="40px" style="display:inline-block;" src="music-service_applemusic.svg" alt="applemusic"></a><br>
+          <a href="https://soundcloud.com/nkwors/synapse" target="_blank"><img class="" width="100px" height="100px" style="display:inline-block;" src="music-service-soundcloud.png" alt="soundcloud"></a><br>
+          <a href="https://open.spotify.com/album/1kavAv9UIqvS3yZhp9CUHb" target="_blank"><img class="" width="125px" height="40px" style="display:inline-block;" src="music-service_spotify.svg" alt="spotify"></a><br>
+          <br> or Purchase<br>
+          <a href="https://itunes.apple.com/jp/album/id1270986884?app=music" target="_blank"><img class="" width="125px" height="40px" style="display:inline-block;" src="music-service_itunes.svg" alt="iTunes"></a><br>
+          <br>
+          <!-- <a href="" target="_blank">AWA</a> |  -->
+          <!-- <a href="" target="_blank">Line Music</a>  -->
+        </center>
+      </div>
+      <div slot="body" v-show="modalContent === 'jacket'">
+        <center>
+          <img src="synapse.png" style="width: 100%;">
+        </center>
+      </div>
+      <div slot="body" v-show="modalContent === 'lyrics'">
+どうしようもできない恋へと<br>
+あーあ　これはプレゼント<br>
+なるべくやめたいregret<br>
+うーう　シナプス　発火して大問題<br>
+<br>
+出来すぎで今日はなんだか<br>
+問題物足りない<br>
+結構好みかも　眼を閉じると　昨日の君がいるだけさ<br>
+<br>
+納得できない恋へと<br>
+あーあ　でも待ってたでしょ<br>
+いまさら変えないformat<br>
+うーう　シナプス　同期して近未来<br>
+<br>
+不規則で今日はなんだか<br>
+問題紐解けない<br>
+結構飲んだかも　目を閉じると　昨日の君がいるだけさ<br>
+<br>
+なぜか軽く脳震盪<br>
+歩き方は変わらない<br>
+口説き文句？えっ？長ったらしい？<br>
+何千回だって言う<br>
+一度として狂っちゃいないはずでも<br>
+君のこと理解できない<br>
+６月中願ってたよ？<br>
+きっと目が合ってたよ<br>
+<br>
+完全に諦めたこと<br>
+あーあ　次はどこへ行こう？<br>
+なるべくやめたいregret<br>
+うーう　シナプス　<br>
+<br>
+ねえ　ただ君がいるだけさ
+      </div>
+      <div slot="body" v-show="modalContent === 'Fan Art'">
+        Thanks! <br><br>
+        - <a href="https://twitter.com/SocialNoiseKun/status/894013751917027328?ref_src=twsrc%5Etfw" target="_blank">シナプス made by LSDj</a> (taketake)<br>
+        - <a href="https://soundcloud.com/evanthedoor/byj4nvnnrjba" target="_blank">シナプス</a> (eventhedoor)<br>
+        - <a href="https://twitter.com/UoFujimura/status/913990503653191680" target="_blank">シナプス の漫画風ファンアート</a> (藤群魚)<br><br>
+        <a href="synapse_fujiwara.jpg" target="_blank"><img src="synapse_fujiwara.jpg" height=270></a>
+      </div>
+    </modal>
+
+  </div>
+  <noscript>JavaScriptを有効にして下さい</noscript>
+  <script src="./vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.core.min.js"></script>
+  <script src="./app.js"></script>
+<!--[if lte IE 9]>
+<p>InternetExplolerは非対応です。</p>
+<![endif]-->
+</body>
+</html>
